@@ -148,6 +148,70 @@ function CountUp({ target, duration = 1800, suffix = '' }) {
   )
 }
 
+/* useInView — bulletproof reveal trigger (IntersectionObserver).
+   Mirrors the proven CountUp approach. Guarantees visibility:
+   - reduced motion -> visible immediately
+   - no IntersectionObserver support -> visible immediately
+   - safety timeout -> visible even if the observer somehow never fires
+   Content is NEVER left permanently invisible. */
+function useInView({ once = true, rootMargin = '0px 0px -8% 0px', threshold = 0.12 } = {}) {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(prefersReducedMotion)
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setInView(true)
+      return
+    }
+    const el = ref.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setInView(true)
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setInView(true)
+            if (once) observer.disconnect()
+          } else if (!once) {
+            setInView(false)
+          }
+        })
+      },
+      { rootMargin, threshold }
+    )
+    observer.observe(el)
+    // Safety net: if the observer never fires, reveal anyway.
+    const fallback = window.setTimeout(() => setInView(true), 2500)
+    return () => {
+      observer.disconnect()
+      window.clearTimeout(fallback)
+    }
+  }, [once, rootMargin, threshold])
+
+  return [ref, inView]
+}
+
+/* Reveal — wrapper that fades + lifts its children into view.
+   Starts at opacity-0/translate-y-6 and transitions to fully visible.
+   Falls back to fully visible (see useInView) so nothing stays hidden. */
+function Reveal({ as: Tag = 'div', delay = 0, className = '', children, ...rest }) {
+  const [ref, inView] = useInView()
+  return (
+    <Tag
+      ref={ref}
+      className={`transition-all duration-700 ease-out will-change-transform ${
+        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+      } ${className}`}
+      style={{ transitionDelay: inView ? `${delay}ms` : '0ms' }}
+      {...rest}
+    >
+      {children}
+    </Tag>
+  )
+}
+
 /* ----------------------------------------------------------------
    Navbar
 ---------------------------------------------------------------- */
@@ -336,8 +400,8 @@ function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-primary-dark/20 to-transparent" />
       </div>
 
-      {/* Signature petals, top-right */}
-      <Petals className="absolute top-0 right-0 w-72 h-[28rem] z-[5]" count={7} />
+      {/* Signature petals — full width across the top, falling left to right */}
+      <Petals className="absolute top-0 left-0 w-full h-[40rem] z-[5]" count={12} />
 
       {/* Top frame */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
@@ -426,7 +490,7 @@ function Historia() {
       ref={ref}
       className="relative bg-background py-24 sm:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden"
     >
-      <Petals className="absolute -top-4 left-0 w-56 h-96 opacity-70" count={4} />
+      <Petals className="absolute -top-4 left-0 w-full h-96 opacity-70" count={8} />
       <div className="absolute -bottom-24 right-0 h-72 w-72 rounded-full bg-sage/15 blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
@@ -519,26 +583,9 @@ const CAFE_ITEMS = [
 ]
 
 function Cafe() {
-  const ref = useRef(null)
-  useEffect(() => {
-    if (prefersReducedMotion) return
-    const ctx = gsap.context(() => {
-      gsap.from('.cafe-card', {
-        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.1,
-      })
-    }, ref)
-    return () => ctx.revert()
-  }, [])
-
   return (
     <section
       id="cafe"
-      ref={ref}
       className="relative bg-background py-24 sm:py-32 px-6 sm:px-10 lg:px-16"
     >
       <div className="max-w-7xl mx-auto">
@@ -561,18 +608,29 @@ function Cafe() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {CAFE_ITEMS.map((item, i) => (
-            <article
+            <Reveal
+              as="article"
               key={i}
-              className="cafe-card group relative rounded-3xl overflow-hidden bg-deep border border-white/10 hover:border-accent/60 transition-all duration-500 shadow-xl shadow-primary/10"
+              delay={i * 80}
+              className="cafe-card group relative rounded-3xl overflow-hidden bg-deep border border-white/10 hover:border-accent/60 hover:shadow-2xl hover:shadow-primary/20 transition-[border-color,box-shadow] duration-500 shadow-xl shadow-primary/10"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
+                {/* Soft radial lift so dark-on-dark product photos read clearly */}
+                <div
+                  className="absolute inset-0 z-[1] pointer-events-none"
+                  style={{
+                    background:
+                      'radial-gradient(circle at 50% 42%, rgba(255,255,255,0.10), rgba(255,255,255,0) 62%)',
+                  }}
+                />
                 <img
                   src={item.img}
                   alt={item.name}
                   loading="lazy"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="relative z-[2] w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-deep via-deep/20 to-transparent" />
+                {/* Subtle bottom vignette only — does not bury the product */}
+                <div className="absolute inset-x-0 bottom-0 z-[3] h-1/3 bg-gradient-to-t from-deep/55 to-transparent pointer-events-none" />
               </div>
               <div className="p-6">
                 <h3 className="font-display font-bold text-xl text-white">
@@ -582,7 +640,7 @@ function Cafe() {
                   {item.desc}
                 </p>
               </div>
-            </article>
+            </Reveal>
           ))}
         </div>
 
@@ -608,30 +666,15 @@ const FLORES_ITEMS = [
 ]
 
 function Flores() {
-  const ref = useRef(null)
-  useEffect(() => {
-    if (prefersReducedMotion) return
-    const ctx = gsap.context(() => {
-      gsap.from('.flor-card', {
-        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        stagger: 0.1,
-      })
-    }, ref)
-    return () => ctx.revert()
-  }, [])
-
   return (
     <section
       id="flores"
-      ref={ref}
       className="relative bg-surface py-24 sm:py-32 px-6 sm:px-10 lg:px-16 overflow-hidden"
     >
+      {/* Subtle full-width petals across the top of this section */}
+      <Petals className="absolute top-0 left-0 w-full h-[34rem] z-[2] opacity-60" count={9} />
       <div className="absolute -top-20 -left-20 h-72 w-72 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto">
         <div className="max-w-2xl mb-14">
           <Eyebrow>Flores &amp; Presentes</Eyebrow>
           <h2 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-ink mt-5 leading-[1.05] tracking-tight">
@@ -644,8 +687,10 @@ function Flores() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {FLORES_ITEMS.map((item, i) => (
-            <article
+            <Reveal
+              as="article"
               key={i}
+              delay={i * 80}
               className="flor-card group relative rounded-3xl overflow-hidden bg-background border border-divider hover:border-accent/50 transition-all duration-500 shadow-lg shadow-primary/5"
             >
               <div className="relative aspect-square overflow-hidden">
@@ -664,11 +709,15 @@ function Flores() {
                   {item.desc}
                 </p>
               </div>
-            </article>
+            </Reveal>
           ))}
 
           {/* Highlight block */}
-          <article className="flor-card relative rounded-3xl overflow-hidden bg-primary text-background p-8 flex flex-col justify-between shadow-xl shadow-primary/30">
+          <Reveal
+            as="article"
+            delay={FLORES_ITEMS.length * 80}
+            className="flor-card relative rounded-3xl overflow-hidden bg-primary text-background p-8 flex flex-col justify-between shadow-xl shadow-primary/30"
+          >
             <div>
               <span className="h-12 w-12 rounded-2xl bg-accent/20 border border-accent/40 flex items-center justify-center">
                 <Gift className="h-6 w-6 text-accent" strokeWidth={2.2} />
@@ -688,7 +737,7 @@ function Flores() {
             >
               Falar no WhatsApp
             </CTAButton>
-          </article>
+          </Reveal>
         </div>
       </div>
     </section>
@@ -748,11 +797,12 @@ function Ocasioes() {
             start: 'top top+=110',
             endTrigger: cards[cards.length - 1],
             end: 'top top+=130',
-            scrub: 1,
+            scrub: 0.5,
           },
+          // GPU-cheap props only (no animated filter blur) -> buttery 60fps
           scale: 0.92,
-          filter: 'blur(6px) saturate(0.7)',
-          opacity: 0.5,
+          opacity: 0.6,
+          force3D: true,
           ease: 'none',
         })
       })
@@ -856,26 +906,9 @@ const GALLERY = [
 ]
 
 function Ambiente() {
-  const ref = useRef(null)
-  useEffect(() => {
-    if (prefersReducedMotion) return
-    const ctx = gsap.context(() => {
-      gsap.from('.gallery-item', {
-        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
-        y: 30,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.08,
-      })
-    }, ref)
-    return () => ctx.revert()
-  }, [])
-
   return (
     <section
       id="ambiente"
-      ref={ref}
       className="relative bg-background py-24 sm:py-32 px-6 sm:px-10 lg:px-16"
     >
       <div className="max-w-7xl mx-auto">
@@ -902,8 +935,9 @@ function Ambiente() {
 
         <div className="grid grid-cols-2 lg:grid-cols-3 auto-rows-[180px] sm:auto-rows-[220px] gap-4">
           {GALLERY.map((g, i) => (
-            <div
+            <Reveal
               key={i}
+              delay={i * 70}
               className={`gallery-item group relative overflow-hidden rounded-3xl ${g.span}`}
             >
               <img
@@ -913,7 +947,7 @@ function Ambiente() {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-primary-dark/0 group-hover:bg-primary-dark/15 transition-colors duration-500" />
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>
