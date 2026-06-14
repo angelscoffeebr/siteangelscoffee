@@ -428,9 +428,8 @@ function Hero() {
           </h1>
 
           <p className="hero-meta mx-auto max-w-xl text-white/75 text-base sm:text-lg mt-8 leading-relaxed">
-            Café especial, flores que falam por você e presentes montados com
-            afeto em detalhes.
-            <span className="text-white"> No coração de Uruaçu.</span>
+            Cafés especiais, croissants, toasts, sanduíches artesanais, torta de
+            frango, flores e presentes para diferentes momentos do dia.
           </p>
 
           <div className="hero-cta mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -510,16 +509,10 @@ function Historia() {
             </h2>
             <div className="mt-7 space-y-5 text-muted text-base sm:text-lg leading-relaxed max-w-xl">
               <p>
-                Inspirada nos cafés europeus, a Angels Coffee Br nasceu para ser
-                mais que um lugar para tomar café. Cada xícara, cada arranjo e
-                cada presente é pensado com curadoria premium e feito à mão, com
-                carinho.
-              </p>
-              <p>
-                Flores delicadas, doces irresistíveis e um atendimento
-                humanizado em um espaço instagramável no centro de Uruaçu. Um
-                cantinho criado para transformar momentos comuns em memórias
-                afetivas.
+                A Angels Coffee Br nasceu em dezembro de 2024 para reunir café,
+                comida bem preparada, flores e presentes em um só lugar. Nosso
+                espaço foi pensado para receber bem, seja para tomar um café,
+                comer algo especial, pedir delivery ou escolher um presente.
               </p>
             </div>
           </div>
@@ -553,32 +546,27 @@ const CAFE_ITEMS = [
   {
     name: 'Cappuccino',
     img: '/img/produtos/cafe-capuccino.jpg',
-    desc: 'Espresso aveludado com leite vaporizado e arte na xícara.',
-  },
-  {
-    name: 'Affogato',
-    img: '/img/produtos/cafe-affogato.jpg',
-    desc: 'Sorvete cremoso afogado em espresso quente. Puro contraste.',
+    desc: 'Cremoso e aromático, do nosso jeito.',
   },
   {
     name: 'Velvet Matcha',
     img: '/img/produtos/cafe-velvet-matcha.jpg',
-    desc: 'Matcha premium, textura aveludada e um verde que encanta.',
+    desc: 'Matcha aveludado, vibrante, quente ou gelado.',
   },
   {
-    name: 'Brownie',
-    img: '/img/produtos/doce-brownie.jpg',
-    desc: 'Denso, úmido e intensamente chocolatudo. Feito à mão.',
+    name: 'Café da Manhã de Hotel',
+    img: '/img/produtos/cafe-da-manha-hotel.jpg',
+    desc: 'Ovos cremosos, bacon, cream cheese e frutas. O dia começa bem.',
   },
   {
-    name: 'Pão de Queijo',
-    img: '/img/produtos/pao-de-queijo.jpg',
-    desc: 'Quentinho, dourado por fora e macio por dentro.',
+    name: 'Toast Caprese',
+    img: '/img/produtos/toast-caprese.jpg',
+    desc: 'Mussarela de búfala, tomate confit e pesto.',
   },
   {
-    name: 'Burrata Toast',
-    img: '/img/produtos/burrata.jpg',
-    desc: 'Torrada artesanal com burrata cremosa. Nosso brunch favorito.',
+    name: 'Croissant de Presunto e Queijo',
+    img: '/img/produtos/croissant-presunto-queijo.jpg',
+    desc: 'Croissant folhado com presunto e queijo derretido.',
   },
 ]
 
@@ -601,8 +589,9 @@ function Cafe() {
             </h2>
           </div>
           <p className="text-muted text-base sm:text-lg leading-relaxed max-w-sm">
-            Cafés especiais, doces feitos à mão e um brunch que vira ritual.
-            Tudo com a assinatura da casa.
+            Do café da manhã ao lanche da tarde, temos bebidas quentes e
+            geladas, croissants, toasts, sanduíches artesanais, torta de frango,
+            pão de queijo e opções para acompanhar seu café.
           </p>
         </div>
 
@@ -658,11 +647,11 @@ function Cafe() {
    Flores & Presentes
 ---------------------------------------------------------------- */
 const FLORES_ITEMS = [
-  { img: '/img/flores/flores-1.jpg', title: 'Buquês', desc: 'Montados à mão para qualquer ocasião.' },
-  { img: '/img/flores/flores-2.jpg', title: 'Box Café da Manhã', desc: 'O carinho do café com a beleza das flores.' },
-  { img: '/img/flores/flores-3.jpg', title: 'Arranjos', desc: 'Delicados para presentear ou decorar.' },
-  { img: '/img/flores/flores-4.jpg', title: 'Rosas Especiais', desc: 'Selecionadas para os momentos que importam.' },
-  { img: '/img/flores/flores-5.jpg', title: 'Presentes Personalizados', desc: 'Montamos do seu jeito, com afeto.' },
+  { img: '/img/flores/flores-1.jpg', title: 'Box de Rosas & Ferrero', desc: 'Rosas e chocolates para uma surpresa irresistível.' },
+  { img: '/img/flores/flores-2.jpg', title: 'Box de Rosas', desc: 'Rosas selecionadas em box, prontas para encantar.' },
+  { img: '/img/flores/flores-3.jpg', title: 'Box Flores & Café', desc: 'Mini roseira com nossos cafés especiais.' },
+  { img: '/img/flores/flores-4.jpg', title: 'Box Presente', desc: 'Flores e mimos montados com carinho.' },
+  { img: '/img/flores/flores-5.jpg', title: 'Box Café da Manhã', desc: 'Flores, café e quitutes para começar bem o dia.' },
 ]
 
 function Flores() {
@@ -683,6 +672,10 @@ function Flores() {
               por você.
             </span>
           </h2>
+          <p className="text-muted text-base sm:text-lg mt-6 leading-relaxed max-w-xl">
+            Buquês, arranjos, rosas e boxes para aniversários, datas
+            comemorativas, agradecimentos e surpresas.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -723,11 +716,12 @@ function Flores() {
                 <Gift className="h-6 w-6 text-accent" strokeWidth={2.2} />
               </span>
               <h3 className="font-display font-bold text-2xl sm:text-3xl mt-6 leading-tight">
-                Montamos seu presente sob medida.
+                Montamos seu presente com você.
               </h3>
               <p className="text-background/70 text-sm mt-3 leading-relaxed">
-                Flores, café, doces e mimos combinados do seu jeito. Conte para
-                a gente a ocasião e nós cuidamos do resto.
+                Você nos conta a ocasião e nós ajudamos a escolher uma opção
+                bonita, bem apresentada e de acordo com a disponibilidade dos
+                itens.
               </p>
             </div>
             <CTAButton
@@ -921,6 +915,10 @@ function Ambiente() {
                 em Uruaçu.
               </span>
             </h2>
+            <p className="text-muted text-base sm:text-lg mt-6 leading-relaxed max-w-xl">
+              Um espaço bonito e acolhedor no centro de Uruaçu para tomar café,
+              comer bem, conversar e aproveitar com calma.
+            </p>
           </div>
           <a
             href={LINKS.instagram}
@@ -997,8 +995,8 @@ function Contato() {
               </span>
             </h2>
             <p className="text-muted text-base sm:text-lg mt-6 leading-relaxed max-w-md">
-              Passe na loja, peça delivery ou chame no WhatsApp. Estamos no
-              centro de Uruaçu, prontos para te receber com afeto.
+              Passe na loja, peça pelo delivery ou fale conosco pelo WhatsApp.
+              Estamos na Av. Transbrasiliana, 170-B, Centro — Uruaçu-GO.
             </p>
 
             <div className="mt-10 space-y-4">
