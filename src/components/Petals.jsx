@@ -7,17 +7,23 @@
 const COLORS = ['#E8A98C', '#9DA98C', '#F0CBB6', '#B7C0A6']
 
 // left%, animationDelay, duration, size(px), drift(px), spin duration, opacity
+// Bigger petals (~30-52px) spread across the FULL width, top-left to top-right.
 const PETALS = [
-  { left: '8%', delay: '0s', dur: '9s', size: 18, drift: 26, spin: '5s', op: 0.85 },
-  { left: '22%', delay: '2.4s', dur: '11s', size: 13, drift: -18, spin: '6.5s', op: 0.7 },
-  { left: '37%', delay: '1.1s', dur: '10s', size: 22, drift: 34, spin: '7s', op: 0.8 },
-  { left: '52%', delay: '3.6s', dur: '12s', size: 15, drift: -28, spin: '5.5s', op: 0.6 },
-  { left: '66%', delay: '0.6s', dur: '9.5s', size: 19, drift: 22, spin: '6s', op: 0.85 },
-  { left: '79%', delay: '2.9s', dur: '11.5s', size: 14, drift: -20, spin: '7.5s', op: 0.65 },
-  { left: '90%', delay: '1.7s', dur: '10.5s', size: 17, drift: 30, spin: '5s', op: 0.75 },
+  { left: '2%', delay: '0s', dur: '11s', size: 44, drift: 40, spin: '6s', op: 0.7 },
+  { left: '11%', delay: '3.2s', dur: '13s', size: 32, drift: -30, spin: '7.5s', op: 0.55 },
+  { left: '20%', delay: '1.4s', dur: '12s', size: 50, drift: 48, spin: '8s', op: 0.65 },
+  { left: '30%', delay: '5s', dur: '14s', size: 36, drift: -36, spin: '6.5s', op: 0.5 },
+  { left: '39%', delay: '2.1s', dur: '11.5s', size: 46, drift: 38, spin: '7s', op: 0.7 },
+  { left: '48%', delay: '6.2s', dur: '13.5s', size: 33, drift: -28, spin: '8.5s', op: 0.5 },
+  { left: '58%', delay: '1s', dur: '12.5s', size: 52, drift: 44, spin: '6s', op: 0.6 },
+  { left: '67%', delay: '4.4s', dur: '14.5s', size: 38, drift: -40, spin: '7.5s', op: 0.55 },
+  { left: '76%', delay: '2.7s', dur: '11s', size: 48, drift: 42, spin: '6.5s', op: 0.68 },
+  { left: '85%', delay: '5.6s', dur: '13s', size: 34, drift: -32, spin: '8s', op: 0.5 },
+  { left: '92%', delay: '0.6s', dur: '12s', size: 42, drift: 36, spin: '7s', op: 0.65 },
+  { left: '96%', delay: '3.8s', dur: '14s', size: 30, drift: -24, spin: '6s', op: 0.45 },
 ]
 
-export default function Petals({ className = '', count = 7 }) {
+export default function Petals({ className = '', count = 12 }) {
   const reduced =
     typeof window !== 'undefined' &&
     window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -70,10 +76,10 @@ export default function Petals({ className = '', count = 7 }) {
 
       <style>{`
         @keyframes petal-fall {
-          0%   { transform: translateY(-30px) translateX(0) rotate(0deg); opacity: 0; }
-          10%  { opacity: var(--op, 0.8); }
+          0%   { transform: translateY(-40px) translateX(0) rotate(0deg); opacity: 0; }
+          8%   { opacity: var(--op, 0.8); }
           90%  { opacity: var(--op, 0.8); }
-          100% { transform: translateY(440px) translateX(var(--drift, 20px)) rotate(40deg); opacity: 0; }
+          100% { transform: translateY(820px) translateX(var(--drift, 20px)) rotate(48deg); opacity: 0; }
         }
         @keyframes petal-spin {
           0%   { transform: rotate(-16deg); }
