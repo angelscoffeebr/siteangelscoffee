@@ -428,8 +428,8 @@ function Hero() {
           </h1>
 
           <p className="hero-meta mx-auto max-w-xl text-white/75 text-base sm:text-lg mt-8 leading-relaxed">
-            Cafés especiais, croissants, toasts, sanduíches artesanais, torta de
-            frango, flores e presentes para diferentes momentos do dia.
+            Cafés especiais, croissants, toasts, sanduíches artesanais, tortas
+            salgadas, flores e presentes para diferentes momentos do dia.
           </p>
 
           <div className="hero-cta mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -479,7 +479,7 @@ function Historia() {
 
   const stats = [
     { node: <CountUp target={2024} duration={2200} />, label: 'desde dezembro' },
-    { node: <CountUp target={30} suffix="+" duration={1800} />, label: 'itens no cardápio' },
+    { node: <CountUp target={3} duration={1400} />, label: 'café · flores · presentes' },
     { node: <CountUp target={100} suffix="%" duration={2000} />, label: 'feito à mão' },
   ]
 
@@ -568,6 +568,11 @@ const CAFE_ITEMS = [
     img: '/img/produtos/croissant-presunto-queijo.jpg',
     desc: 'Croissant folhado com presunto e queijo derretido.',
   },
+  {
+    name: 'Torta de Frango',
+    img: '/img/produtos/torta-frango.jpg',
+    desc: 'Massa amanteigada e recheio cremoso. Uma das nossas tortas salgadas.',
+  },
 ]
 
 function Cafe() {
@@ -590,7 +595,7 @@ function Cafe() {
           </div>
           <p className="text-muted text-base sm:text-lg leading-relaxed max-w-sm">
             Do café da manhã ao lanche da tarde, temos bebidas quentes e
-            geladas, croissants, toasts, sanduíches artesanais, torta de frango,
+            geladas, croissants, toasts, sanduíches artesanais, tortas salgadas,
             pão de queijo e opções para acompanhar seu café.
           </p>
         </div>
@@ -897,6 +902,7 @@ const GALLERY = [
   { img: '/img/ambiente/ambiente-3.jpg', span: 'sm:row-span-2' },
   { img: '/img/ambiente/ambiente-4.jpg', span: '' },
   { img: '/img/ambiente/ambiente-5.jpg', span: '' },
+  { img: '/img/ambiente/ambiente-6.jpg', span: '' },
 ]
 
 function Ambiente() {
