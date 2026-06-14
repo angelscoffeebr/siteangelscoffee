@@ -479,7 +479,6 @@ function Historia() {
 
   const stats = [
     { node: <CountUp target={2024} duration={2200} />, label: 'desde dezembro' },
-    { node: <CountUp target={3} duration={1400} />, label: 'café · flores · presentes' },
     { node: <CountUp target={100} suffix="%" duration={2000} />, label: 'feito à mão' },
   ]
 
@@ -518,7 +517,7 @@ function Historia() {
           </div>
 
           {/* Right: stats trio */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-divider rounded-4xl overflow-hidden border border-divider shadow-xl shadow-primary/5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-divider rounded-4xl overflow-hidden border border-divider shadow-xl shadow-primary/5">
             {stats.map((s, i) => (
               <div
                 key={i}
@@ -551,7 +550,7 @@ const CAFE_ITEMS = [
   {
     name: 'Velvet Matcha',
     img: '/img/produtos/cafe-velvet-matcha.jpg',
-    desc: 'Matcha aveludado, vibrante, quente ou gelado.',
+    desc: 'Matcha gelado, com geleia de morango artesanal.',
   },
   {
     name: 'Café da Manhã de Hotel',
