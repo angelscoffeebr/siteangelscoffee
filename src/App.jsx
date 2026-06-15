@@ -1208,6 +1208,33 @@ export default function App() {
     return () => clearTimeout(id)
   }, [])
 
+  // Google Ads — dispara conversão no clique em WhatsApp ou Saipos (delivery).
+  // Mesma config da landing antiga (AW-17338852634). Listener delegado cobre
+  // todos os links, atuais e futuros. Sem preventDefault: os CTAs abrem em nova
+  // aba, a página permanece e o beacon do gtag é enviado normalmente.
+  useEffect(() => {
+    const onClick = (e) => {
+      const a = e.target.closest && e.target.closest('a')
+      if (!a || typeof window.gtag !== 'function') return
+      const href = (a.getAttribute('href') || '').toLowerCase()
+      if (
+        href.includes('wa.me') ||
+        href.includes('api.whatsapp.com') ||
+        href.includes('whatsapp')
+      ) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-17338852634/816gCKeBm60cEJrK58tA',
+        })
+      } else if (href.includes('angelscoffeebr.saipos.com')) {
+        window.gtag('event', 'conversion', {
+          send_to: 'AW-17338852634/025-CI7N6K8cEJrK58tA',
+        })
+      }
+    }
+    document.addEventListener('click', onClick)
+    return () => document.removeEventListener('click', onClick)
+  }, [])
+
   return (
     <div className="relative">
       <div className="noise-overlay" />
