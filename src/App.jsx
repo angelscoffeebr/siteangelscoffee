@@ -593,10 +593,10 @@ function Cafe() {
           </div>
           <p className="text-muted text-base sm:text-lg leading-relaxed max-w-md">
             A Angels Coffee oferece uma culinária feita com cuidado, bons
-            ingredientes e combinações que fogem do comum. Nossos cafés,
-            croissants, toasts e sanduíches unem preparo artesanal, sabores
-            marcantes e uma apresentação delicada, criando uma experiência
-            pensada para ser apreciada em cada detalhe.
+            ingredientes e combinações que fogem do comum. Todo nosso cardápio
+            possui preparo artesanal, sabores marcantes e uma apresentação
+            delicada, criando uma experiência pensada para ser apreciada em cada
+            detalhe.
           </p>
         </div>
 
