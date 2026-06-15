@@ -429,7 +429,7 @@ function Hero() {
 
           <p className="hero-meta mx-auto max-w-xl text-white/75 text-base sm:text-lg mt-8 leading-relaxed">
             Cafés especiais, croissants, toasts, sanduíches artesanais, tortas
-            salgadas, flores e presentes para diferentes momentos do dia.
+            salgadas, flores e presentes para diferentes momentos e ocasiões.
           </p>
 
           <div className="hero-cta mt-10 flex flex-col sm:flex-row gap-4 justify-center">
