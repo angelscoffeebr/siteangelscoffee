@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://angelscoffeebr.com.br/sitemap.xml

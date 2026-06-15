@@ -393,7 +393,7 @@ function Hero() {
       <div className="absolute inset-0">
         <img
           src="/img/ambiente/hero.jpg"
-          alt="Ambiente da Angels Coffee Br"
+          alt="Ambiente aconchegante da Angels Coffee Br, cafeteria e floraria no centro de Uruaçu-GO"
           className="w-full h-full object-cover brightness-[.55]"
         />
         <div className="absolute inset-0 bg-gradient-to-tr from-primary-dark/80 via-primary-dark/40 to-primary-dark/70" />
@@ -896,13 +896,41 @@ function Ocasioes() {
    Ambiente — gallery
 ---------------------------------------------------------------- */
 const GALLERY = [
-  { img: '/img/ambiente/hero.jpg', span: 'sm:row-span-2' },
-  { img: '/img/ambiente/ambiente-1.jpg', span: '' },
-  { img: '/img/ambiente/ambiente-2.jpg', span: '' },
-  { img: '/img/ambiente/ambiente-3.jpg', span: 'sm:row-span-2' },
-  { img: '/img/ambiente/ambiente-4.jpg', span: '' },
-  { img: '/img/ambiente/ambiente-5.jpg', span: '' },
-  { img: '/img/ambiente/ambiente-6.jpg', span: '' },
+  {
+    img: '/img/ambiente/hero.jpg',
+    span: 'sm:row-span-2',
+    alt: 'Buquê de crisântemos vermelhos no balcão da Angels Coffee Br, com máquina de espresso e nichos arqueados ao fundo',
+  },
+  {
+    img: '/img/ambiente/ambiente-1.jpg',
+    span: '',
+    alt: 'Janela arqueada da Angels Coffee Br com vista para o pátio externo com mesas e guarda-sóis',
+  },
+  {
+    img: '/img/ambiente/ambiente-2.jpg',
+    span: '',
+    alt: 'Entrada da Angels Coffee Br com portão de ferro e detalhes em latão',
+  },
+  {
+    img: '/img/ambiente/ambiente-3.jpg',
+    span: 'sm:row-span-2',
+    alt: 'Área externa da Angels Coffee Br com guarda-sóis bege, mesas e plantas',
+  },
+  {
+    img: '/img/ambiente/ambiente-4.jpg',
+    span: '',
+    alt: 'Pátio com bambuzal, guarda-sóis e mesas na Angels Coffee Br em Uruaçu-GO',
+  },
+  {
+    img: '/img/ambiente/ambiente-5.jpg',
+    span: '',
+    alt: 'Fachada da Angels Coffee Br com toldo azul e placa, no centro de Uruaçu-GO',
+  },
+  {
+    img: '/img/ambiente/ambiente-6.jpg',
+    span: '',
+    alt: 'Salão interno da Angels Coffee Br com banco estofado, arandelas douradas e mesas',
+  },
 ]
 
 function Ambiente() {
@@ -946,7 +974,7 @@ function Ambiente() {
             >
               <img
                 src={g.img}
-                alt="Ambiente da Angels Coffee Br"
+                alt={g.alt}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
