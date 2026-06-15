@@ -678,7 +678,7 @@ function Flores() {
             </span>
           </h2>
           <p className="text-muted text-base sm:text-lg mt-6 leading-relaxed max-w-xl">
-            Buquês, arranjos, rosas e boxes para aniversários, datas
+            Buquês, arranjos, rosas e box para aniversários, datas
             comemorativas, agradecimentos e surpresas.
           </p>
         </div>
