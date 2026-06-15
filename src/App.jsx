@@ -585,17 +585,18 @@ function Cafe() {
           <div className="max-w-2xl">
             <Eyebrow>O Café</Eyebrow>
             <h2 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl text-ink mt-5 leading-[1.05] tracking-tight">
-              Do espresso
-              <span className="font-serif italic font-medium text-accent-dark">
-                {' '}
-                ao brunch.
+              Da pausa para o café
+              <span className="block font-serif italic font-medium text-accent-dark">
+                a uma refeição leve e saborosa.
               </span>
             </h2>
           </div>
-          <p className="text-muted text-base sm:text-lg leading-relaxed max-w-sm">
-            Do café da manhã ao lanche da tarde, temos bebidas quentes e
-            geladas, croissants, toasts, sanduíches artesanais, tortas salgadas,
-            pão de queijo e opções para acompanhar seu café.
+          <p className="text-muted text-base sm:text-lg leading-relaxed max-w-md">
+            A Angels Coffee oferece uma culinária feita com cuidado, bons
+            ingredientes e combinações que fogem do comum. Nossos cafés,
+            croissants, toasts e sanduíches unem preparo artesanal, sabores
+            marcantes e uma apresentação delicada, criando uma experiência
+            pensada para ser apreciada em cada detalhe.
           </p>
         </div>
 
