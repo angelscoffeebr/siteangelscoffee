@@ -40,7 +40,7 @@ const NAV_LINKS = [
   { label: 'Início', href: '#inicio' },
   { label: 'História', href: '#historia' },
   { label: 'Café', href: '#cafe' },
-  { label: 'Flores', href: '#flores' },
+  { label: 'Flores', href: '/flores' },
   { label: 'Ocasiões', href: '#ocasioes' },
   { label: 'Contato', href: '#contato' },
 ]
